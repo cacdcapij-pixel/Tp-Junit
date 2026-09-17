@@ -60,5 +60,47 @@ public class CompteBancaireTest {
 
         assertThrows(MontantInvalideException.class, () -> compte.retirer(-50));
     }
+    @Test
+    void calculerInterets_sur_un_solde_positif() {
+        CompteBancaire compte = new CompteBancaire("FR7612345", "Charles");
+        compte.deposer(1000);
+
+        double interets = compte.calculerInterets(0.05);
+
+        assertEquals(50, interets, 0.001);
+        assertEquals(1000, compte.getSolde(), 0.001);
+    }
+
+    @Test
+    void calculerInterets_sur_un_solde_negatif_retourne_zero() {
+        CompteBancaire compte = new CompteBancaire("FR7612345", "Charles", 200);
+        compte.retirer(100);
+
+        assertEquals(0, compte.calculerInterets(0.05), 0.001);
+    }
+
+    @Test
+    void calculerInterets_avec_un_taux_negatif_leve_une_exception() {
+        CompteBancaire compte = new CompteBancaire("FR7612345", "Charles");
+        compte.deposer(1000);
+
+        assertThrows(IllegalArgumentException.class, () -> compte.calculerInterets(-0.05));
+    }
+
+    @Test
+    void estEnDecouvert_est_faux_sur_un_solde_positif() {
+        CompteBancaire compte = new CompteBancaire("FR7612345", "Charles");
+        compte.deposer(100);
+
+        assertFalse(compte.estEnDecouvert());
+    }
+
+    @Test
+    void estEnDecouvert_est_vrai_sur_un_solde_negatif() {
+        CompteBancaire compte = new CompteBancaire("FR7612345", "Charles", 200);
+        compte.retirer(50);
+
+        assertTrue(compte.estEnDecouvert());
+    }
 }
 
