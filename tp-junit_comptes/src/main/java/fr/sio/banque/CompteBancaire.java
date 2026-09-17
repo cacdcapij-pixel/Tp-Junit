@@ -1,5 +1,7 @@
 package fr.sio.banque;
 import fr.sio.banque.exceptions.MontantInvalideException;
+import fr.sio.banque.exceptions.SoldeInsuffisantException;
+
 /**
  * Compte bancaire : depot, retrait avec decouvert autorise, calcul d'interets.
  *
@@ -47,7 +49,18 @@ public class CompteBancaire {
      * qui ferait passer le solde sous -decouvertAutorise (SoldeInsuffisantException).
      */
     public void retirer(double montant) {
-        throw new UnsupportedOperationException("pas encore implemente");
+        if (montant <= 0) {
+            throw new MontantInvalideException("Montant invalide : " + montant);
+        }
+
+        double nouveauSolde = solde - montant;
+
+        if (nouveauSolde < -decouvertAutorise) {
+            throw new SoldeInsuffisantException("Retrait refuse : solde " + solde
+                    + ", decouvert autorise " + decouvertAutorise);
+        }
+
+        solde = nouveauSolde;
     }
 
     /**
