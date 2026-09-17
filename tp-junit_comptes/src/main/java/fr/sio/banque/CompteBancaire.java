@@ -68,12 +68,18 @@ public class CompteBancaire {
      * Rejette un taux negatif.
      */
     public double calculerInterets(double taux) {
-        throw new UnsupportedOperationException("pas encore implemente");
+        if (taux < 0) {
+            throw new IllegalArgumentException("Le taux doit etre positif ou nul");
+        }
+        if (solde <= 0) {
+            return 0;
+        }
+        return solde * taux;
     }
 
     /** @return true si le solde est strictement negatif */
     public boolean estEnDecouvert() {
-        throw new UnsupportedOperationException("pas encore implemente");
+        return solde < 0;
     }
 
     public double getSolde() {
