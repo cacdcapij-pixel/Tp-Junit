@@ -1,5 +1,5 @@
 package fr.sio.banque;
-
+import fr.sio.banque.exceptions.MontantInvalideException;
 /**
  * Compte bancaire : depot, retrait avec decouvert autorise, calcul d'interets.
  *
@@ -35,7 +35,10 @@ public class CompteBancaire {
      * Rejette un montant negatif ou nul (MontantInvalideException).
      */
     public void deposer(double montant) {
-        throw new UnsupportedOperationException("pas encore implemente");
+        if (montant <= 0) {
+            throw new MontantInvalideException("Montant invalide : " + montant);
+        }
+        solde += montant;
     }
 
     /**
