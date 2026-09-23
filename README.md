@@ -1,4 +1,4 @@
-# TP JUnit - Gestion de comptes bancaires
+﻿# TP JUnit - Gestion de comptes bancaires
 
 ## Présentation
 
@@ -93,6 +93,11 @@ cd tp-junit_comptes
 mvn compile
 java -cp target/classes fr.sio.banque.ui.Main
 ```
+
+Depuis IntelliJ : ouvrir `src/main/java/fr/sio/banque/ui/Main.java` et cliquer la
+flèche verte à gauche de `public static void main`. IntelliJ crée une configuration
+de lancement `Main`, ensuite disponible dans le sélecteur en haut de la fenêtre, à
+côté des configurations de test.
 
 Le projet cible Java 17 (`maven.compiler.release`), il se compile donc avec n'importe
 quel JDK 17 ou supérieur.
